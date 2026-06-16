@@ -151,6 +151,13 @@ export default function App() {
       setActiveFooterTab('none');
       window.scrollTo({ top: 0 });
     } else {
+      // Open Adsterra Smartlink in a new tab upon selecting any of the 4 page links
+      try {
+        window.open('https://www.effectivecpmnetwork.com/q0dqbk3ca0?key=7d2a5c93906795732e09f636bb6ac68a', '_blank', 'noopener,noreferrer');
+      } catch (e) {
+        console.warn('Popup blocked:', e);
+      }
+
       setIsPageLoading(true);
       setLoadingProgress(0);
       window.scrollTo({ top: 0 }); // Instant scroll target to top right as requested
@@ -588,6 +595,14 @@ export default function App() {
   // Trigger download of the reconstructed image
   const handleDownloadRecreated = () => {
     if (!recreatedImage) return;
+    
+    // Open Adsterra Smartlink in a new tab as requested
+    try {
+      window.open('https://www.effectivecpmnetwork.com/q0dqbk3ca0?key=7d2a5c93906795732e09f636bb6ac68a', '_blank', 'noopener,noreferrer');
+    } catch (e) {
+      console.warn('Popup blocked:', e);
+    }
+
     const link = document.createElement('a');
     link.href = recreatedImage.dataUrl;
     link.download = recreatedImage.name;
@@ -640,6 +655,14 @@ export default function App() {
   // Helper downloads generated code block directly as plaintext .txt file
   const handleDownloadCodeFile = () => {
     if (!generatedCode) return;
+
+    // Open Adsterra Smartlink in a new tab as requested
+    try {
+      window.open('https://www.effectivecpmnetwork.com/q0dqbk3ca0?key=7d2a5c93906795732e09f636bb6ac68a', '_blank', 'noopener,noreferrer');
+    } catch (e) {
+      console.warn('Popup blocked:', e);
+    }
+
     const element = document.createElement('a');
     const file = new Blob([generatedCode], { type: 'text/plain;charset=utf-8' });
     element.href = URL.createObjectURL(file);
