@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import Banner from './components/Banner';
 import UserProfile from './components/UserProfile';
+import AdsterraBanner, { loadPopunders } from './components/AdsterraBanner';
 import { LosslessImage, UserStats, FooterTab } from './types';
 import About from './pages/About';
 import Privacy from './pages/Privacy';
@@ -798,10 +799,14 @@ export default function App() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             id="workspace-console-node" 
-            className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-6 space-y-8 animate-fade-in"
+            className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-1.5 pb-6 animate-fade-in flex flex-col gap-2"
           >
-            {/* Two-Column Grid: Large spacious panels with high contrast layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch pt-1">
+            {/* Top Banner Ad - High impact responsive large leaderboard */}
+            <AdsterraBanner id="top-workspace-banner-ad" format="320-50" />
+
+            <div className="space-y-8 w-full">
+              {/* Two-Column Grid: Large spacious panels with high contrast layout */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch pt-1">
               {/* Left Column: Combined selective compiler image selector card */}
               <div className="lg:col-span-5 flex flex-col">
                 <UserProfile 
@@ -813,6 +818,11 @@ export default function App() {
                   generatedCode={generatedCode}
                   stats={stats}
                 />
+              </div>
+
+              {/* Dynamic responsive ad between Selector and Recreator panels */}
+              <div className="lg:col-span-12 py-1 flex justify-center">
+                <AdsterraBanner id="between-selector-recreator-panels" format="320-50" />
               </div>
 
               {/* Right Column: Code paste panel - Styled with its own beautiful curved border */}
@@ -904,6 +914,11 @@ export default function App() {
                   )}
                 </div>
 
+                {/* Narrow responsive horizontal banner below recreate action state */}
+                <div className="mt-3.5 flex justify-center w-full">
+                  <AdsterraBanner id="under-recreate-button-ad" format="320-50" />
+                </div>
+
                 {/* INTEGRATED PREVIEW AREA */}
                 <div className="mt-6 pt-6 border-t border-slate-100 min-h-[200px] flex items-center justify-center">
                   {isScanning ? (
@@ -957,6 +972,11 @@ export default function App() {
                 </div>
 
               </div>
+            </div>
+
+            {/* Large responsive ad below main workspace container columns */}
+            <div className="w-full flex justify-center py-2">
+              <AdsterraBanner id="below-main-columns-ad" format="320-50" />
             </div>
 
             {/* GENERATED CODE CONTAINER (Shown above image preview box) */}
@@ -1046,6 +1066,12 @@ export default function App() {
                       <span className="text-[10px] text-slate-400 font-medium block leading-tight">Your compiled and recreated files saved securely inside your browser's local sandbox</span>
                     </div>
                   </div>
+
+                  {/* Ad placed specifically between local registry title and clear all registry option */}
+                  <div className="flex justify-center items-center py-2 sm:py-0">
+                    <AdsterraBanner id="above-clear-registry-ad" format="320-50" />
+                  </div>
+
                   <button
                     onClick={handleClearAllHistory}
                     className="self-start sm:self-auto text-[10px] font-black text-rose-600 hover:text-white border border-rose-200 hover:bg-rose-600 rounded-xl px-3.5 py-2 transition-all text-center flex items-center gap-1.5 active:scale-95 cursor-pointer uppercase tracking-wider"
@@ -1056,59 +1082,67 @@ export default function App() {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {uploads.map((item) => (
-                    <motion.div
-                      key={item.id}
-                      initial={{ opacity: 0, scale: 0.98 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.98 }}
-                      className="border border-slate-200 hover:border-blue-400 rounded-2xl p-3.5 bg-slate-50/50 hover:bg-white transition-all flex flex-col justify-between shadow-sm hover:shadow group relative"
-                    >
-                      <div className="flex gap-3">
-                        {/* Interactive Checkerboard Thumbnail if previewUrl exists */}
-                        <div className="w-12 h-12 rounded-lg border border-slate-200 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:8px_8px] bg-white flex-shrink-0 overflow-hidden flex items-center justify-center self-start">
-                          {item.previewUrl ? (
-                            <img
-                              src={item.previewUrl}
-                              alt={item.name}
-                              referrerPolicy="no-referrer"
-                              className="w-full h-full object-contain"
-                            />
-                          ) : (
-                            <Layers className="w-5 h-5 text-slate-300" />
-                          )}
+                  {uploads.map((item, index) => (
+                    <React.Fragment key={item.id}>
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.98 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        className="border border-slate-200 hover:border-blue-400 rounded-2xl p-3.5 bg-slate-50/50 hover:bg-white transition-all flex flex-col justify-between shadow-sm hover:shadow group relative"
+                      >
+                        <div className="flex gap-3">
+                          {/* Interactive Checkerboard Thumbnail if previewUrl exists */}
+                          <div className="w-12 h-12 rounded-lg border border-slate-200 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] bg-[size:8px_8px] bg-white flex-shrink-0 overflow-hidden flex items-center justify-center self-start">
+                            {item.previewUrl ? (
+                              <img
+                                src={item.previewUrl}
+                                alt={item.name}
+                                referrerPolicy="no-referrer"
+                                className="w-full h-full object-contain"
+                              />
+                            ) : (
+                              <Layers className="w-5 h-5 text-slate-300" />
+                            )}
+                          </div>
+
+                          <div className="min-w-0 flex-1">
+                            <span className="block text-xs font-extrabold text-slate-900 truncate" title={item.name}>
+                              {item.name}
+                            </span>
+                            <span className="block font-mono text-[9px] text-slate-400 mt-0.5">
+                              {formatBytesSize(item.size)} • {item.type.split('/')[1]?.toUpperCase() || 'RAW'}
+                            </span>
+                            <span className="block text-[8.5px] text-slate-400 font-medium mt-1">
+                              {item.timestamp}
+                            </span>
+                          </div>
                         </div>
 
-                        <div className="min-w-0 flex-1">
-                          <span className="block text-xs font-extrabold text-slate-900 truncate" title={item.name}>
-                            {item.name}
-                          </span>
-                          <span className="block font-mono text-[9px] text-slate-400 mt-0.5">
-                            {formatBytesSize(item.size)} • {item.type.split('/')[1]?.toUpperCase() || 'RAW'}
-                          </span>
-                          <span className="block text-[8.5px] text-slate-400 font-medium mt-1">
-                            {item.timestamp}
-                          </span>
+                        <div className="mt-4 pt-3 border-t border-slate-100 flex items-center gap-2">
+                          <button
+                            onClick={() => handleSelectFromHistory(item)}
+                            className="flex-1 py-1.5 bg-blue-50 hover:bg-blue-600 text-blue-700 hover:text-white font-extrabold text-[10px] uppercase tracking-widest rounded-lg border border-blue-100 hover:border-blue-600 cursor-pointer transition-all active:scale-[0.96] text-center"
+                            title="Load code to re-creator input"
+                          >
+                            Load Code
+                          </button>
+                          <button
+                            onClick={() => handleDeleteImage(item.id)}
+                            className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg cursor-pointer transition-colors active:scale-95"
+                            title="Delete from workspace"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
                         </div>
-                      </div>
+                      </motion.div>
 
-                      <div className="mt-4 pt-3 border-t border-slate-100 flex items-center gap-2">
-                        <button
-                          onClick={() => handleSelectFromHistory(item)}
-                          className="flex-1 py-1.5 bg-blue-50 hover:bg-blue-600 text-blue-700 hover:text-white font-extrabold text-[10px] uppercase tracking-widest rounded-lg border border-blue-100 hover:border-blue-600 cursor-pointer transition-all active:scale-[0.96] text-center"
-                          title="Load code to re-creator input"
-                        >
-                          Load Code
-                        </button>
-                        <button
-                          onClick={() => handleDeleteImage(item.id)}
-                          className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg cursor-pointer transition-colors active:scale-95"
-                          title="Delete from workspace"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </motion.div>
+                      {/* Continuous responsive ad blocks in-between mapped items */}
+                      {index < uploads.length - 1 && (
+                        <div className="col-span-1 sm:col-span-1 lg:col-span-1 flex items-center justify-center">
+                          <AdsterraBanner id={`history-gap-ad-${index}`} format="320-50" />
+                        </div>
+                      )}
+                    </React.Fragment>
                   ))}
                 </div>
               </div>
@@ -1129,106 +1163,148 @@ export default function App() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 text-slate-650 text-sm leading-relaxed items-start">
-                  
-                  {/* Column One */}
-                  <div className="lg:col-span-6 space-y-6">
-                    <div className="bg-slate-50 border border-slate-200/50 p-6 sm:p-7 rounded-[2rem] space-y-4">
-                      <h3 className="font-extrabold text-red-650 text-base uppercase tracking-wider flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
-                        1. The Invisible Hazard of Algorithmic Compression
-                      </h3>
-                      <p>
-                        Every single day, trillions of high-fidelity pixels—representing professional UI/UX visual layout compositions, scientific vector graphics, secure corporate signature validations, and stunning high-resolution photography—are transmitted across instant messaging ecosystems and global social networks. There is, however, a covert, aggressive process of file degradation occurring behind closed cloud server doors. Real-world content sharing pipelines operate on an unswerving business priority: save network bandwidth first, prioritize visual purity second.
-                      </p>
-                      <p>
-                        To achieve maximum server throughput and avoid multi-terabyte visual storage costs, platforms employ destructive lossy encoders like downscaled Huffman coding, chroma subsampling, and quantizing algorithms (e.g. JPEG standard downsampling). They analyze your crystal-clear creative outputs, find color gradients they deem "unessential", and throw them away forever. 
-                      </p>
-                      <p>
-                        When these images are retrieved by your friends, clients, or future archives, they are plagued by blocky visual artifacts, fuzzy edges, distorted gradients, and muddy color tones. ImagePixel directly eliminates this menace. Since our software compiles files locally in your web sandbox environment, we capture 100% of the byte bitstream. With absolutely zero downscaling, resizing, or lossy chromatic compression, your master files remain forever unchanged.
-                      </p>
-                    </div>
+                {/* Under technical header of home description */}
+                <div className="flex justify-center w-full py-1">
+                  <AdsterraBanner id="tech-architecture-top-banner" format="responsive-728-320" />
+                </div>
 
-                    <div className="bg-slate-50 border border-slate-200/50 p-6 sm:p-7 rounded-[2rem] space-y-4">
-                      <h3 className="font-extrabold text-[#0f172a] text-base uppercase tracking-wider flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#0f172a]"></span>
-                        2. The Mathematics of Alphanumeric stream preservation
-                      </h3>
-                      <p>
-                        To bypass the aggressive compression algorithms of social networks, ImagePixel implements a direct binary-to-text encapsulation mechanism based on structural ASCII arrays. Instead of attempting to upload binary files directly, we wrap them into a bulletproof container. When you select an image in our selective upload terminal, our system leverages the HTML5 FileReader interface to access the physical byte sequence directly inside the local RAM space. This sequence is translated into a highly structured 8-bit Base64 alphanumeric string.
-                      </p>
-                      <p>
-                        Crucially, our protocol wraps the converted stream inside an authentic, non-alterable header sequence: <code className="bg-white px-2 py-1 border border-slate-200 rounded font-mono text-xs text-indigo-600 font-bold">IMAGEPIXEL_v1#[FILE_NAME]#[MIME_TYPE]#[BASE64_STREAM]</code>. This preserves the raw metadata, exact operating system name coordinates, and file extension characteristics from decay. 
-                      </p>
-                      <p>
-                        Because email networks, note-taking applications, and standard clipboard protocols do not touch or compress text characters, passing this custom text string from user to user guarantees that not a single bit or color gradient is altered in transit. Placing this text packet back into our image reconstructor allows the local web rendering system to mathematically recompose the exact binary footprint of your master asset.
-                      </p>
-                    </div>
+                <div className="flex flex-col gap-6 text-slate-650 text-sm leading-relaxed">
+                  
+                  {/* Box 1 */}
+                  <div className="bg-slate-50 border border-slate-200/50 p-6 sm:p-7 rounded-[2rem] space-y-4">
+                    <h3 className="font-extrabold text-red-650 text-base uppercase tracking-wider flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+                      1. The Invisible Hazard of Algorithmic Compression
+                    </h3>
+                    <p>
+                      Every single day, trillions of high-fidelity pixels—representing professional UI/UX visual layout compositions, scientific vector graphics, secure corporate signature validations, and stunning high-resolution photography—are transmitted across instant messaging ecosystems and global social networks. There is, however, a covert, aggressive process of file degradation occurring behind closed cloud server doors. Real-world content sharing pipelines operate on an unswerving business priority: save network bandwidth first, prioritize visual purity second.
+                    </p>
+                    <p>
+                      To achieve maximum server throughput and avoid multi-terabyte visual storage costs, platforms employ destructive lossy encoders like downscaled Huffman coding, chroma subsampling, and quantizing algorithms (e.g. JPEG standard downsampling). They analyze your crystal-clear creative outputs, find color gradients they deem "unessential", and throw them away forever. 
+                    </p>
+                    <p>
+                      When these images are retrieved by your friends, clients, or future archives, they are plagued by blocky visual artifacts, fuzzy edges, distorted gradients, and muddy color tones. ImagePixel directly eliminates this menace. Since our software compiles files locally in your web sandbox environment, we capture 100% of the byte bitstream. With absolutely zero downscaling, resizing, or lossy chromatic compression, your master files remain forever unchanged.
+                    </p>
                   </div>
 
-                  {/* Column Two */}
-                  <div className="lg:col-span-6 space-y-6">
-                    <div className="bg-slate-50 border border-slate-200/50 p-6 sm:p-7 rounded-[2rem] space-y-4">
-                      <h3 className="font-extrabold text-[#16a34a] text-base uppercase tracking-wider flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#16a34a]"></span>
-                        3. Eliminating Storage Databases: Client Sandbox Sovereignty
-                      </h3>
-                      <p>
-                        Traditional image processing services require user assets to be transmitted to, compiled on, and stored within cloud-hosted server platforms. This architectural requirement compromises consumer privacy, opening windows to massive security breaches, unexpected data leaks, or unauthorized system crawling. ImagePixel is physically designed on an uncompromising zero-data philosophy.
-                      </p>
-                      <p>
-                        The complete image-to-code conversion and code-to-image restoration cycle execute purely in your local browser sandbox context. Your visual assets, legal document files, scanned receipts, and creative signatures never touch a secondary backend web server, database, or tracking buffer. By leveraging local browser storage (LocalStorage), your history is persistent solely within your own computer's memory profile. It is a secure, decentralized workspace.
-                      </p>
-                      <p>
-                        This approach guarantees compliance with even the strictest personal data protection and corporate confidentiality policies. You never have to ask permission to run files through our converter, and you do not risk leaving trace documents in unknown cloud stacks.
-                      </p>
-                    </div>
+                  {/* High-Earning Wide Banner Ad in the Gap between Box 1 and Box 2 */}
+                  <div className="w-full flex justify-center py-2 shrink-0">
+                    <AdsterraBanner id="tech-gap-ad-between-box-1-and-2" format="responsive-728-320" />
+                  </div>
 
-                    <div className="bg-slate-50 border border-slate-200/50 p-6 sm:p-7 rounded-[2rem] space-y-4">
-                      <h3 className="font-extrabold text-blue-700 text-base uppercase tracking-wider flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
-                        4. Advanced Canvas Reconstruction Pipeline
-                      </h3>
-                      <p>
-                        During image reconstruction, the alphanumeric text string is passed to our hardware-accelerated HTML5 Canvas decoding framework. The engine parses the custom metadata header to determine original mime-type and dimensions. It then feeds the alphanumeric payload into a high-performance native rendering loop. By converting ASCII data characters direct into mathematical color coordinates (RGBA), we reconstruct pixels with 100% accuracy.
-                      </p>
-                      <p>
-                        The recreated output is rendered on your viewport, ready for immediate download, replication, or cross-browser storage. This physical byte mapping renders any typical digital compression mechanism completely useless. By wrapping bytes as plain text, you can bypass the limits of standard message sizes easily while securing absolute pixel guarantee outputs long-term.
-                      </p>
-                      <p>
-                        As modern micro-displays increase density, the slightest compression artifact degrades readability. ImagePixel standardizes your creative archives, enabling lossless recovery decades down the line. It is not just an application, but a durable, open standard for the global art and developer community.
-                      </p>
-                    </div>
+                  {/* Box 2 */}
+                  <div className="bg-slate-50 border border-slate-200/50 p-6 sm:p-7 rounded-[2rem] space-y-4">
+                    <h3 className="font-extrabold text-[#0f172a] text-base uppercase tracking-wider flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#0f172a]"></span>
+                      2. The Mathematics of Alphanumeric stream preservation
+                    </h3>
+                    <p>
+                      To bypass the aggressive compression algorithms of social networks, ImagePixel implements a direct binary-to-text encapsulation mechanism based on structural ASCII arrays. Instead of attempting to upload binary files directly, we wrap them into a bulletproof container. When you select an image in our selective upload terminal, our system leverages the HTML5 FileReader interface to access the physical byte sequence directly inside the local RAM space. This sequence is translated into a highly structured 8-bit Base64 alphanumeric string.
+                    </p>
+                    <p>
+                      Crucially, our protocol wraps the converted stream inside an authentic, non-alterable header sequence: <code className="bg-white px-2 py-1 border border-slate-200 rounded font-mono text-xs text-indigo-600 font-bold">IMAGEPIXEL_v1#[FILE_NAME]#[MIME_TYPE]#[BASE64_STREAM]</code>. This preserves the raw metadata, exact operating system name coordinates, and file extension characteristics from decay. 
+                    </p>
+                    <p>
+                      Because email networks, note-taking applications, and standard clipboard protocols do not touch or compress text characters, passing this custom text string from user to user guarantees that not a single bit or color gradient is altered in transit. Placing this text packet back into our image reconstructor allows the local web rendering system to mathematically recompose the exact binary footprint of your master asset.
+                    </p>
+                  </div>
+
+                  {/* High-Earning Wide Banner Ad in the Gap between Box 2 and Box 3 */}
+                  <div className="w-full flex justify-center py-2 shrink-0">
+                    <AdsterraBanner id="tech-gap-ad-between-box-2-and-3" format="responsive-728-320" />
+                  </div>
+
+                  {/* Box 3 */}
+                  <div className="bg-slate-50 border border-slate-200/50 p-6 sm:p-7 rounded-[2rem] space-y-4">
+                    <h3 className="font-extrabold text-[#16a34a] text-base uppercase tracking-wider flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#16a34a]"></span>
+                      3. Eliminating Storage Databases: Client Sandbox Sovereignty
+                    </h3>
+                    <p>
+                      Traditional image processing services require user assets to be transmitted to, compiled on, and stored within cloud-hosted server platforms. This architectural requirement compromises consumer privacy, opening windows to massive security breaches, unexpected data leaks, or unauthorized system crawling. ImagePixel is physically designed on an uncompromising zero-data philosophy.
+                    </p>
+                    <p>
+                      The complete image-to-code conversion and code-to-image restoration cycle execute purely in your local browser sandbox context. Your visual assets, legal document files, scanned receipts, and creative signatures never touch a secondary backend web server, database, or tracking buffer. By leveraging local browser storage (LocalStorage), your history is persistent solely within your own computer's memory profile. It is a secure, decentralized workspace.
+                    </p>
+                    <p>
+                      This approach guarantees compliance with even the strictest personal data protection and corporate confidentiality policies. You never have to ask permission to run files through our converter, and you do not risk leaving trace documents in unknown cloud stacks.
+                    </p>
+                  </div>
+
+                  {/* High-Earning Wide Banner Ad in the Gap between Box 3 and Box 4 */}
+                  <div className="w-full flex justify-center py-2 shrink-0">
+                    <AdsterraBanner id="tech-gap-ad-between-box-3-and-4" format="responsive-728-320" />
+                  </div>
+
+                  {/* Box 4 */}
+                  <div className="bg-slate-50 border border-slate-200/50 p-6 sm:p-7 rounded-[2rem] space-y-4">
+                    <h3 className="font-extrabold text-blue-700 text-base uppercase tracking-wider flex items-center gap-2">
+                      <span className="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+                      4. Advanced Canvas Reconstruction Pipeline
+                    </h3>
+                    <p>
+                      During image reconstruction, the alphanumeric text string is passed to our hardware-accelerated HTML5 Canvas decoding framework. The engine parses the custom metadata header to determine original mime-type and dimensions. It then feeds the alphanumeric payload into a high-performance native rendering loop. By converting ASCII data characters direct into mathematical color coordinates (RGBA), we reconstruct pixels with 100% accuracy.
+                    </p>
+                    <p>
+                      The recreated output is rendered on your viewport, ready for immediate download, replication, or cross-browser storage. This physical byte mapping renders any typical digital compression mechanism completely useless. By wrapping bytes as plain text, you can bypass the limits of standard message sizes easily while securing absolute pixel guarantee outputs long-term.
+                    </p>
+                    <p>
+                      As modern micro-displays increase density, the slightest compression artifact degrades readability. ImagePixel standardizes your creative archives, enabling lossless recovery decades down the line. It is not just an application, but a durable, open standard for the global art and developer community.
+                    </p>
                   </div>
 
                 </div>
 
+                {/* Highly strategic responsive ad above highlights container */}
+                <div className="flex justify-center w-full py-4 border-t border-dashed border-slate-150">
+                  <AdsterraBanner id="tech-above-highlights-ad" format="320-50" />
+                </div>
+
                 {/* Highlights grids detailing specific user controls */}
-                <div className="bg-white border border-slate-200/60 p-6 sm:p-8 rounded-[2rem] mt-8 grid grid-cols-1 sm:grid-cols-3 gap-8">
+                <div className="bg-white border border-slate-200/60 p-6 sm:p-8 rounded-[2rem] mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
                   
-                  <div className="space-y-2">
-                    <span className="block font-black text-xs uppercase tracking-widest text-blue-600 font-mono">01. Lossless Compilation Box</span>
-                    <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                      The primary drag-and-drop workspace triggers instant layout mapping. Once a master picture is selected, your image is loaded directly from local registers, displaying dimensional details on a smooth, modern visual card.
-                    </p>
+                  {/* Highlight 01 */}
+                  <div className="bg-slate-50 border border-slate-200/40 p-5 rounded-2xl flex flex-col justify-between space-y-4">
+                    <div className="space-y-2">
+                      <span className="block font-black text-xs uppercase tracking-widest text-blue-600 font-mono">01. Lossless Compilation Box</span>
+                      <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                        The primary drag-and-drop workspace triggers instant layout mapping. Once a master picture is selected, your image is loaded directly from local registers, displaying dimensional details on a smooth, modern visual card.
+                      </p>
+                    </div>
+                    <div className="pt-2 flex justify-center border-t border-slate-100">
+                      <AdsterraBanner id="highlight-ad-1" format="320-50" />
+                    </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <span className="block font-black text-xs uppercase tracking-widest text-[#16a34a] font-mono">02. 3s Scanning Laser Feedback</span>
-                    <p className="text-xs text-slate-500 leading-relaxed font-bold">
-                      Recreation launches an simulated blue computer laser diagnostic scanning operation. The viewport smoothly coordinates progress bars, compiling original byte blocks and loading the asset safely to the screen top.
-                    </p>
+                  {/* Highlight 02 */}
+                  <div className="bg-slate-50 border border-slate-200/40 p-5 rounded-2xl flex flex-col justify-between space-y-4">
+                    <div className="space-y-2">
+                      <span className="block font-black text-xs uppercase tracking-widest text-[#16a34a] font-mono">02. 3s Scanning Laser Feedback</span>
+                      <p className="text-xs text-slate-500 leading-relaxed font-bold">
+                        Recreation launches an simulated blue computer laser diagnostic scanning operation. The viewport smoothly coordinates progress bars, compiling original byte blocks and loading the asset safely to the screen top.
+                      </p>
+                    </div>
+                    <div className="pt-2 flex justify-center border-t border-slate-100">
+                      <AdsterraBanner id="highlight-ad-2" format="320-50" />
+                    </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <span className="block font-black text-xs uppercase tracking-widest text-red-600 font-mono">03. High Performance Client Storage</span>
-                    <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                      The dashboard stores safe local records of compiled images. Instantly reuse previously parsed items, copy raw hex text files, or trigger file package distribution with complete safety covenants.
-                    </p>
+                  {/* Highlight 03 */}
+                  <div className="bg-slate-50 border border-slate-200/40 p-5 rounded-2xl flex flex-col justify-between space-y-4">
+                    <div className="space-y-2">
+                      <span className="block font-black text-xs uppercase tracking-widest text-red-650 font-mono">03. High Performance Client Storage</span>
+                      <p className="text-xs text-slate-500 leading-relaxed font-medium">
+                        The dashboard stores safe local records of compiled images. Instantly reuse previously parsed items, copy raw hex text files, or trigger file package distribution with complete safety covenants.
+                      </p>
+                    </div>
+                    <div className="pt-2 flex justify-center border-t border-slate-100">
+                      <AdsterraBanner id="highlight-ad-3" format="320-50" />
+                    </div>
                   </div>
 
                 </div>
               </div>
+            </div>
           </motion.div>
         ) : (
           <motion.div
@@ -1237,13 +1313,23 @@ export default function App() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.98 }}
             transition={{ duration: 0.4, ease: 'easeOut' }}
-            className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 py-6 pb-20 animate-fade-in"
+            className="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 py-6 pb-20 animate-fade-in flex flex-col gap-5"
           >
+            {/* Top Page Outer Large Responsive Banner - direct big banner, no boxes/borders/clipping */}
+            <div className="w-full flex justify-center">
+              <AdsterraBanner id={`${activeFooterTab}-page-outer-top-banner`} format="responsive-728-320" />
+            </div>
+
             <div className="bg-white shadow-xl rounded-[2rem] border border-slate-100 overflow-hidden">
               {activeFooterTab === 'about' && <About onBack={() => navigateToTab('none')} />}
               {activeFooterTab === 'privacy' && <Privacy onBack={() => navigateToTab('none')} />}
               {activeFooterTab === 'terms' && <Terms onBack={() => navigateToTab('none')} />}
               {activeFooterTab === 'contact' && <Contact onBack={() => navigateToTab('none')} />}
+            </div>
+
+            {/* Bottom Page Outer Large Responsive Banner - direct big banner, no boxes/borders/clipping */}
+            <div className="w-full flex justify-center">
+              <AdsterraBanner id={`${activeFooterTab}-page-outer-bottom-banner`} format="responsive-728-320" />
             </div>
           </motion.div>
         )}

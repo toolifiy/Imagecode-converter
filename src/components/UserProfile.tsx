@@ -6,6 +6,7 @@ import {
   Layers
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import AdsterraBanner from './AdsterraBanner';
 
 interface UserProfileProps {
   selectedFile: File | null;
@@ -98,6 +99,12 @@ export default function UserProfile({
                   : `${stats.totalBytes} B`}
             </span>
           </div>
+        </div>
+      )}
+
+      {selectedFile && (
+        <div className="-my-1.5">
+          <AdsterraBanner id="user-profile-selected-ad" format="320-50" />
         </div>
       )}
 

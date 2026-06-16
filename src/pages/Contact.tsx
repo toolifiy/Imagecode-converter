@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, MessageSquare, Send, CheckCircle, HelpCircle, Bug, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import AdsterraBanner from '../components/AdsterraBanner';
 
 interface ContactProps {
   onBack: () => void;
@@ -74,6 +75,9 @@ export default function Contact({ onBack }: ContactProps) {
               At ImagePixel, we intentionally reject automated, generic chat-bots, circular FAQ trees, and canned ticketing auto-responders. We understand that parsing complex Base64 pixel coordinate packages, analyzing browser canvas compilation errors, and handling raw photographic rendering requires nuanced technical understanding. Every submission made to our feedback center is read and answered manually by real web development and digital preservation engineers within 24 to 48 hours.
             </p>
           </section>
+
+          {/* Column level banner ad */}
+          <AdsterraBanner id="contact-mid-col" format="responsive-728-320" />
 
           <section className="space-y-3">
             <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
@@ -206,6 +210,7 @@ export default function Contact({ onBack }: ContactProps) {
         </div>
 
       </div>
+
     </motion.div>
   );
 }

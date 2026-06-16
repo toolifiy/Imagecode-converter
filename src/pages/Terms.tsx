@@ -1,6 +1,7 @@
 import React from 'react';
 import { BookOpen, Scale, FileSignature, HelpCircle, FileCheck, ShieldAlert } from 'lucide-react';
 import { motion } from 'motion/react';
+import AdsterraBanner from '../components/AdsterraBanner';
 
 interface TermsProps {
   onBack: () => void;
@@ -61,6 +62,9 @@ export default function Terms({ onBack }: TermsProps) {
           </p>
         </section>
 
+        {/* Mid-1 Banner Ad */}
+        <AdsterraBanner id="terms-mid-1" format="responsive-728-320" />
+
         <section className="space-y-3">
           <h3 className="text-base font-black text-slate-900 uppercase tracking-wide flex items-center gap-2">
             <FileSignature className="w-4.5 h-4.5 text-indigo-600" />
@@ -86,6 +90,9 @@ export default function Terms({ onBack }: TermsProps) {
             Because we do not monitor, record, store, or inspect your processed images, **you bear exclusive, complete legal responsibility for all content processed inside your viewport session.** You agree to indemnify and hold harmless the developers of ImagePixel from any claims, legal suits, monetary demands, damages, or disputes that arise from your use of the application.
           </p>
         </section>
+
+        {/* Mid-2 Banner Ad */}
+        <AdsterraBanner id="terms-mid-2" format="responsive-728-320" />
 
         <section className="space-y-3">
           <h3 className="text-base font-black text-slate-900 uppercase tracking-wide flex items-center gap-2">

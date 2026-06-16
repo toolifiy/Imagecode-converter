@@ -1,6 +1,7 @@
 import React from 'react';
 import { Sparkles, Cpu, Layers, Image, Zap, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
+import AdsterraBanner from '../components/AdsterraBanner';
 
 interface AboutProps {
   onBack: () => void;
@@ -61,6 +62,9 @@ export default function About({ onBack }: AboutProps) {
           </p>
         </section>
 
+        {/* Mid section banner ad 1 */}
+        <AdsterraBanner id="about-mid-1" format="responsive-728-320" />
+
         <section className="space-y-3">
           <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">
             <Layers className="w-4.5 h-4.5 text-blue-600" />
@@ -86,6 +90,9 @@ export default function About({ onBack }: AboutProps) {
             By translating your pictures into portable character packets, we empower you to bypass messenger compression. You can copy the code, save it inside plain text files, send it via standard email, or archive it inside raw text backups. When you or your colleague return to ImagePixel and paste that alphanumeric stream into our Re-creator console, the local engine matches the byte patterns to render the pristine, bitwise-matched original master copy without any decay.
           </p>
         </section>
+
+        {/* Mid section banner ad 2 */}
+        <AdsterraBanner id="about-mid-2" format="responsive-728-320" />
 
         <section className="space-y-3">
           <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2">

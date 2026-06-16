@@ -1,6 +1,7 @@
 import React from 'react';
 import { Shield, Eye, Lock, HardDrive, Key, CheckCircle } from 'lucide-react';
 import { motion } from 'motion/react';
+import AdsterraBanner from '../components/AdsterraBanner';
 
 interface PrivacyProps {
   onBack: () => void;
@@ -61,6 +62,9 @@ export default function Privacy({ onBack }: PrivacyProps) {
           </p>
         </section>
 
+        {/* Mid-1 Banner Ad */}
+        <AdsterraBanner id="privacy-mid-1" format="responsive-728-320" />
+
         <section className="space-y-3">
           <h3 className="text-base font-black text-slate-900 uppercase tracking-wide flex items-center gap-2">
             <Eye className="w-4.5 h-4.5 text-red-600" />
@@ -86,6 +90,9 @@ export default function Privacy({ onBack }: PrivacyProps) {
             It is critical to note that this history log runs entirely on top of **client-side LocalStorage and SessionStorage systems**. These bytes reside strictly within your current browser's localized sandbox profile on your physical machine. We do not sync this log to any third-party clouds or central tracking pixels. You can clear this history instantly at any point by clicking the garbage buttons or by clearing your browser cache/cookies.
           </p>
         </section>
+
+        {/* Mid-2 Banner Ad */}
+        <AdsterraBanner id="privacy-mid-2" format="responsive-728-320" />
 
         <section className="space-y-3">
           <h3 className="text-base font-black text-slate-900 uppercase tracking-wide flex items-center gap-2">
