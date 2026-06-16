@@ -1,0 +1,6 @@
+{
+  "name": "ImagePixel",
+  "description": "A lossless image code generator and previewer with 100% pixel-perfect quality retention, user upload history, scan animation, and comprehensive information panels.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
