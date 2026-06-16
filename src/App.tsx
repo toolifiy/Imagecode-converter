@@ -595,13 +595,6 @@ export default function App() {
   // Trigger download of the reconstructed image
   const handleDownloadRecreated = () => {
     if (!recreatedImage) return;
-    
-    // Open Adsterra Smartlink in a new tab as requested
-    try {
-      window.open('https://www.effectivecpmnetwork.com/q0dqbk3ca0?key=7d2a5c93906795732e09f636bb6ac68a', '_blank', 'noopener,noreferrer');
-    } catch (e) {
-      console.warn('Popup blocked:', e);
-    }
 
     const link = document.createElement('a');
     link.href = recreatedImage.dataUrl;
@@ -609,6 +602,13 @@ export default function App() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+
+    // Open Adsterra Smartlink in a new tab as requested
+    try {
+      window.open('https://www.effectivecpmnetwork.com/q0dqbk3ca0?key=7d2a5c93906795732e09f636bb6ac68a', '_blank', 'noopener,noreferrer');
+    } catch (e) {
+      console.warn('Popup blocked:', e);
+    }
   };
 
   // Copy recreated base64 code string to clipboard
@@ -656,13 +656,6 @@ export default function App() {
   const handleDownloadCodeFile = () => {
     if (!generatedCode) return;
 
-    // Open Adsterra Smartlink in a new tab as requested
-    try {
-      window.open('https://www.effectivecpmnetwork.com/q0dqbk3ca0?key=7d2a5c93906795732e09f636bb6ac68a', '_blank', 'noopener,noreferrer');
-    } catch (e) {
-      console.warn('Popup blocked:', e);
-    }
-
     const element = document.createElement('a');
     const file = new Blob([generatedCode], { type: 'text/plain;charset=utf-8' });
     element.href = URL.createObjectURL(file);
@@ -670,6 +663,13 @@ export default function App() {
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
+
+    // Open Adsterra Smartlink in a new tab as requested
+    try {
+      window.open('https://www.effectivecpmnetwork.com/q0dqbk3ca0?key=7d2a5c93906795732e09f636bb6ac68a', '_blank', 'noopener,noreferrer');
+    } catch (e) {
+      console.warn('Popup blocked:', e);
+    }
   };
 
   // Generic copies generated code to clipboard
